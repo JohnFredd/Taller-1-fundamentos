@@ -22,8 +22,8 @@
 
 ;; Pruebas
 
-(list-set '(a b c d) 2 '(1 2))
-(list-set '(a b c d) 3 '(1 5 10))
+(define ls1 (list-set '(a b c d) 2 '(1 2)))
+(define ls2 (list-set '(a b c d) 3 '(1 5 10)))
 
 ;--------------------------------------------------------------
 ;--------------------------------------------------------------
@@ -47,9 +47,9 @@
 
 ;; Pruebas
 
-(swapper 'a 'd '(a b c d))
-(swapper 'a 'd '(a d () c d))
-(swapper 'x 'y '(y y x y x y x x y))
+(define sw1 (swapper 'a 'd '(a b c d)))
+(define sw2 (swapper 'a 'd '(a d () c d)))
+(define sw3 (swapper 'x 'y '(y y x y x y x x y)))
 
 ;--------------------------------------------------------------
 ;--------------------------------------------------------------
@@ -82,9 +82,9 @@
 
 ;; Pruebas
 
-(aux-inversions 2 '(3 8 6 1))
-(aux-inversions 1 '(2 3 4))
-(aux-inversions 3 '(2 1))
+(define ain1 (aux-inversions 2 '(3 8 6 1)))
+(define ain2 (aux-inversions 1 '(2 3 4)))
+(define ain3 (aux-inversions 3 '(2 1)))
 
 ; ************************* Funcion principal ********************
 
@@ -95,7 +95,6 @@
          (+ (aux-inversions (car L) (cdr L)) (inversions (cdr L))))))
 
 ;; Pruebas
-
-(inversions '(2 3 8 6 1))
-(inversions '(1 2 3 4))
-(inversions '(3 2 1))
+(define in1 (inversions '(2 3 8 6 1)))
+(define in2 (inversions '(1 2 3 4)))
+(define in3 (inversions '(3 2 1)))
