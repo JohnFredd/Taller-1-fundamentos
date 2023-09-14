@@ -50,3 +50,52 @@
 (swapper 'a 'd '(a b c d))
 (swapper 'a 'd '(a d () c d))
 (swapper 'x 'y '(y y x y x y x x y))
+
+;--------------------------------------------------------------
+;--------------------------------------------------------------
+;; (9)
+;; inversions
+;; Proposito:
+;; Lista -> Int : Retorna el número de inversiones de la lista L, sea L una lista
+;; (a1 a2 ... an) de n numeros diferentes, una inversion de L es una pareja (i j)
+;; tal que i < j y ai > aj.
+;;
+;; <Lista> := ()
+;;         := (<Int> <Lista>)
+
+; ************************* Funciones auxiliares *****************
+;; aux-inversions
+;; Proposito:
+;; Int x Lista -> Int : Compara x con los elementos de la lista y devuelve
+;; el numero de veces que x fue mayor que algun elemento de la lista.
+;;
+;; <Lista> := ()
+;;         := (<Int> <Lista>)
+
+(define aux-inversions
+   (lambda (x L)
+      (if (null? L)
+          0
+          (if (> x (car L))
+              (+ 1 (aux-inversions x (cdr L)))
+              (aux-inversions x (cdr L))))))
+
+;; Pruebas
+
+(aux-inversions 2 '(3 8 6 1))
+(aux-inversions 1 '(2 3 4))
+(aux-inversions 3 '(2 1))
+
+; ************************* Funcion principal ********************
+
+(define inversions
+   (lambda (L)
+      (if (null? L)
+         0
+         (+ (aux-inversions (car L) (cdr L)) (inversions (cdr L))))))
+
+;; Pruebas
+
+(inversions '(2 3 8 6 1))
+(inversions '(1 2 3 4))
+(inversions '(3 2 1))
