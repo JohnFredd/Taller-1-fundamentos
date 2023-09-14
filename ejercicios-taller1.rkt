@@ -1,7 +1,3 @@
-;;Hernan David Cisneros Vargas 2178192
-;;John Freddy Belalcar Rojas 2182464
-;;Julián David Rendon Cardona 2177387
-
 #lang eopl
 
 ;---------------------------------------------------------------------------------------
@@ -9,11 +5,13 @@
 ;; (1)
 ;; invert:
 ;; Proposito:
-;; Lista-tuplas -> Lista-tuplas-invertida: Procedimiento que toma una lista de pares (tuplas)
-;; y devuelve una nueva lista, donde cada par ha intercambiado el orden de sus elementos.
+;; L -> L': Procedimiento que toma una lista de pares (tuplas) L
+;; y devuelve una nueva lista L', donde cada par ha intercambiado el orden de sus elementos.
+;;
+;; <invert> := (invert <list>)
 ;;
 ;; <list>  := ()
-;;         := ((<schemeVauluw> <acheyasby>) <list>)
+;;         := ((<schemeValue> <schemeValue>) <list>)
 
 
 (define invert
@@ -34,11 +32,16 @@
 ;; (4)
 ;; filter-in:
 ;; Proposito:
-;; Predicado x Lista -> Lista-cumple-predicado : Procedimiento que toma un predicado P y una lista L de elementos,
+;; P x L -> L' : Procedimiento que toma un predicado P y una lista L de elementos,
 ;; y devuelve una nueva lista L' con solo los elementos de L que satisfacen el predicado P.
 ;;
-;; 
+;; <filter-in> := (filter-in <predicate> <list>)
 ;;
+;; <predicate> := <procedure>
+;; <list>  := ()
+;;         := ((<schemeValue> <schemeValue>) <list>)
+;; <schemeValue> := <atom> | <list>
+
 
 (define filter-in
   (lambda (P L)
@@ -64,8 +67,11 @@
 ;; Lista x Lista -> Lista-producto-cartesiano : Procedimiento que toma los elementos de dos listas
 ;; y realiza su producto cartesiano y luego lo devuelve en una lista de tuplas.
 ;;
-;;<lista> := ()
-;; := (<valor-de-scheme> <lista>)
+; ;<cartesian-product> := (cartesian-product <list> <list>)
+;;
+;; <list> := ()
+;;        := (<valor-de-scheme> <list>)
+;; <schemeValue> := <atom> | <list>
 
 (define cartesian-product
   (lambda (L1 L2)
@@ -85,6 +91,11 @@
 ;; Lista x Lista -> Lista : Procedimiento que toma dos listas, y devuelve una nueva lista
 ;; que contiene todos los elementos de La lista 1 seguidos por todos los elementos de La lista 2 en el mismo orden.
 ;;
+;; <mi_append> := (mi_append <list> <list>)
+;;
+;; <list> := ()
+;;        := (<schemeValue> <list>)
+;; <schemeValue> := <atom> | <list>
 
 (define mi_append
   (lambda (L1 L2)
@@ -97,6 +108,12 @@
 ;; (A -> B) x [A] -> [B] : Procedimiento que aplica la función func a cada elemento de
 ;; la lista lst y devuelve una nueva lista con los resultados de las aplicaciones.
 ;;
+;; <mi_map> := (mi_map <function> <list>)
+;;
+;; <function> := <Procedure>
+;; <list> ::= '() | (<schemeValue> <list>)
+;; <schemeValue> := <atom> | <list>
+
 
 (define mi_map
   (lambda (func lst)
@@ -122,6 +139,11 @@
 ;; L -> L' : Procedimiento que toma una lista L y devuelve una nueva lista L'
 ;; que es una versión plana de L, eliminando la anidación de sublistas.
 ;;
+;; <up> := (up <list>)
+;;
+;; <list> := ()
+;;        := (<schemeValue> <list>)
+;; <schemeValue> := <atom> | <list>
 
 (define up
   (lambda (lst)
@@ -148,10 +170,14 @@
 ;; [Lista de Funciones Binarias] [Lista de Números] -> Número : Procedimiento que aplica
 ;; sucesivamente una lista de operadores binarios a una lista de valores
 ;; y devuelve el resultado final de la operacion.
-;
 ;;
-;;<lista> := ()
-;; := (<valor-de-scheme> <lista>)
+;; <operate> := (operate <binaryFuncionList> <numbersList>)
+;;
+;; <binaryFuncionList> := ()
+;;                    := (<function> <binaryFuncionList>)
+;; <numbersList> := ()
+;;               := (<int> <numbersList>)
+
 
 (define operate
   (lambda (lrators lrands)
