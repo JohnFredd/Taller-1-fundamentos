@@ -24,3 +24,29 @@
 
 (list-set '(a b c d) 2 '(1 2))
 (list-set '(a b c d) 3 '(1 5 10))
+
+;--------------------------------------------------------------
+;--------------------------------------------------------------
+;; (6)
+;; swapper
+;; Proposito:
+;; Element x Element x Lista -> Lista : Remplaza todas las coincidencias de E1 por E2
+;; y viceversa en la Lista L.
+;;
+;; <Lista> := ()
+;;         := (<valor-de-scheme> <Lista>)
+
+(define swapper
+   (lambda (E1 E2 L)
+      (if (null? L)
+         L
+         (cond
+            [(equal? (car L) E1) (cons E2 (swapper E1 E2 (cdr L)))]
+            [(equal? (car L) E2) (cons E1 (swapper E1 E2 (cdr L)))]
+            [else (cons (car L) (swapper E1 E2 (cdr L)))]))))
+
+;; Pruebas
+
+(swapper 'a 'd '(a b c d))
+(swapper 'a 'd '(a d () c d))
+(swapper 'x 'y '(y y x y x y x x y))
