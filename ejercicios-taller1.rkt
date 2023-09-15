@@ -127,7 +127,7 @@
 ;; count-odd-and-even
 ;; Proposito:
 ;; Arbol -> Int x Int : Retorna una lista con dos elementos correspondientes
-;; a la cantidad de pares e impares en el arbol
+;; a la cantidad de pares e impares en el arbol.
 ;;
 ;; <Arbol> := ()
 ;;         := (<Int> <Arbol> <Arbol>)
@@ -135,7 +135,7 @@
 ; ************************* Funciones auxiliares *****************
 ;; count-even
 ;; Proposito:
-;; Arbol -> Int : Retorna la cantidad de pares en el arbol
+;; Arbol -> Int : Retorna la cantidad de pares en el arbol.
 ;;
 ;; <Arbol> := ()
 ;;         := (<Int> <Arbol> <Arbol>)
@@ -164,7 +164,7 @@
 
 ;; count-odd
 ;; Proposito:
-;; Arbol -> Int : Retorna la cantidad de impares en el arbol
+;; Arbol -> Int : Retorna la cantidad de impares en el arbol.
 ;;
 ;; <Arbol> := ()
 ;;         := (<Int> <Arbol> <Arbol>)
@@ -207,3 +207,67 @@
 (define coae2 (count-odd-and-even
    '(5 (3 (2 (1 () ()) (4 () ())) ())
        (8 (6 () ()) (9 () ())))))
+
+;--------------------------------------------------------------
+;--------------------------------------------------------------
+;; (18)
+;; pascal
+;; Proposito:
+;; Int -> Lista : Retorna la N-esima fila del triangulo de pascal.
+;;
+;; <Pascal> := (<Lista>)+
+;; <Lista>  := (<Int>)*
+
+; ************************* Funciones auxiliares *****************
+;; sumar-listas
+;; Proposito:
+;; Lista x Lista -> Lista : Retorna una lista correspondiente a la suma de
+;; cada elemento de la primera lista con el elemento de la misma posicion
+;; en la segunda lista.
+;;
+;; <Lista> := ()
+;;         := (<Int> <Lista>)
+
+(define sumar-listas
+   (lambda (L1 L2)
+      (if (null? L1)
+         '()
+         (cons (+ (car L1) (car L2)) (sumar-listas (cdr L1) (cdr L2))))))
+
+;; Pruebas
+
+(define sl1 (sumar-listas '(0 1 3 3 1) '(1 3 3 1 0)))
+(define sl2 (sumar-listas '(0 1 4 6 4 1) '(1 4 6 4 1 0)))
+
+;; append
+;; Proposito:
+;; Lista x Lista -> Lista : Retorna la lista resultante de concatenar las listas
+;; de entrada.
+;;
+;; <Lista> := ()
+;;         := (<Int> <Lista>)
+
+(define append
+   (lambda (L1 L2)
+      (if (null? L1)
+         L2
+         (cons (car L1) (append (cdr L1) L2)))))
+
+;; Pruebas
+
+(define ap1 (append '(0 1 3 3 1) '(1 3 3 1 0)))
+(define ap2 (append '(0 1 4 6 4 1) '(1 4 6 4 1 0)))
+
+; ************************* Funcion principal ********************
+
+(define pascal
+   (lambda (N)
+     (if (equal? N 1)
+        '(1)
+        (sumar-listas (cons 0 (pascal (- N 1))) (append (pascal (- N 1)) '(0))))))
+
+;; Pruebas
+
+(define pas1 (pascal 4))
+(define pas2 (pascal 5))
+(define pas3 (pascal 6))
