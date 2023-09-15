@@ -111,12 +111,99 @@
 (define filter-acum
   (lambda (a b F acum filter)
     (if (> a b)
-        acum
-        (if (filter a)
-            (filter-acum (+ a 1) b F (F a acum) filter)
-            (filter-acum (+ a 1) b F acum filter)))))
+       acum
+       (if (filter a)
+          (filter-acum (+ a 1) b F (F a acum) filter)
+          (filter-acum (+ a 1) b F acum filter)))))
 
 ;; Pruebas
 
 (define fa1 (filter-acum 1 10 + 0 odd?))
 (define fa2 (filter-acum 1 10 + 0 even?))
+
+;--------------------------------------------------------------
+;--------------------------------------------------------------
+;; (15)
+;; count-odd-and-even
+;; Proposito:
+;; Arbol -> Int x Int : Retorna una lista con dos elementos correspondientes
+;; a la cantidad de pares e impares en el arbol
+;;
+;; <Arbol> := ()
+;;         := (<Int> <Arbol> <Arbol>)
+
+; ************************* Funciones auxiliares *****************
+;; count-even
+;; Proposito:
+;; Arbol -> Int : Retorna la cantidad de pares en el arbol
+;;
+;; <Arbol> := ()
+;;         := (<Int> <Arbol> <Arbol>)
+
+(define count-even
+   (lambda (arbol)
+      (if (null? arbol)
+         0
+         (+
+            (if (even? (car arbol))
+               1
+               0)
+            (count-even (cadr arbol))
+            (count-even (caddr arbol))))))
+
+;; Pruebas
+
+(define ce1 (count-even '(14 (7 () (12 () ()))
+(26 (20 (17 () ())
+())
+(31 () ())))))
+
+(define ce2 (count-even
+   '(5 (3 (2 (1 () ()) (4 () ())) ())
+       (8 (6 () ()) (9 () ())))))
+
+;; count-odd
+;; Proposito:
+;; Arbol -> Int : Retorna la cantidad de impares en el arbol
+;;
+;; <Arbol> := ()
+;;         := (<Int> <Arbol> <Arbol>)
+
+(define count-odd
+   (lambda (arbol)
+      (if (null? arbol)
+         0
+         (+
+            (if (odd? (car arbol))
+               1
+               0)
+            (count-odd (cadr arbol))
+            (count-odd (caddr arbol))))))
+
+;; Pruebas
+
+(define co1 (count-odd '(14 (7 () (12 () ()))
+(26 (20 (17 () ())
+())
+(31 () ())))))
+
+(define co2 (count-odd
+   '(5 (3 (2 (1 () ()) (4 () ())) ())
+       (8 (6 () ()) (9 () ())))))
+
+; ************************* Funcion principal ********************
+
+(define count-odd-and-even
+   (lambda (arbol)
+      (cons (count-even arbol) (cons (count-odd arbol) empty))))
+
+;; Pruebas
+
+(define coae1 (count-odd-and-even '(14 (7 () (12 () ()))
+(26 (20 (17 () ())
+())
+(31 () ())))))
+
+(define coae2 (count-odd-and-even
+   '(5 (3 (2 (1 () ()) (4 () ())) ())
+       (8 (6 () ()) (9 () ())))))
