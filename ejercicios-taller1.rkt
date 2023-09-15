@@ -98,3 +98,25 @@
 (define in1 (inversions '(2 3 8 6 1)))
 (define in2 (inversions '(1 2 3 4)))
 (define in3 (inversions '(3 2 1)))
+
+;--------------------------------------------------------------
+;--------------------------------------------------------------
+;; (12)
+;; filter-acum
+;; Proposito:
+;; Int x Int x Function x Int x Function -> Int : Aplica la funcion
+;; binaria a todos los elementos entre a y b que cumplen el predicado
+;; de la funcion unaria y lo guarda en acum, posteriormente retorna acum.
+
+(define filter-acum
+  (lambda (a b F acum filter)
+    (if (> a b)
+        acum
+        (if (filter a)
+            (filter-acum (+ a 1) b F (F a acum) filter)
+            (filter-acum (+ a 1) b F acum filter)))))
+
+;; Pruebas
+
+(define fa1 (filter-acum 1 10 + 0 odd?))
+(define fa2 (filter-acum 1 10 + 0 even?))
